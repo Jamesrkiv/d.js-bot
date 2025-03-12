@@ -54,14 +54,14 @@ const rest = new REST().setToken(token);
 			Routes.applicationCommands(clientId),
 			{ body: commands },
 		);
-		console.log(`Successfully reloaded ${data.length} application (/) commands - GLOBAL`);
+		console.log('\x1b[32m%s\x1b[0m', `Successfully reloaded ${data.length} application (/) commands - GLOBAL`);
 		console.log(`Started refreshing ${testCommands.length} application (/) commands - TEST`);
 		// The put method is used to fully refresh all commands in all guilds with the current set
 		const testData = await rest.put(
 			Routes.applicationGuildCommands(clientId, testGuildId),
 			{ body: testCommands },
 		);
-		console.log(`Successfully reloaded ${testData.length} application (/) commands - TEST`);
+		console.log('\x1b[32m%s\x1b[0m', `Successfully reloaded ${testData.length} application (/) commands - TEST`);
 	}
 	catch (error) {
 		// And of course, make sure you catch and log any errors!
