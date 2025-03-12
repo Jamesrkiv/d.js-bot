@@ -1,0 +1,1 @@
+powershell.exe -NoExit node ./app/deploy-commands.js
