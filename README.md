@@ -1,3 +1,5 @@
+<h1><img src="misc/art_assets/lily_icon/lily_icon_d.png" alt="drawing" width="24"/> Lily Bot | Discord.js</h1>
+
 The config file `app/config.json` should be of the following format:
 ```json
 {
