@@ -1,8 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
-// TODO: Dynamically create buttons based on command folders, pull list of commands from each
-// Can the exported 'data' be accessed to get command descriptions? Or names, should the formatting be different?
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('avatar')
