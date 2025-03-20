@@ -1,1 +1,1 @@
-powershell.exe -NoExit npm init
+powershell.exe -NoExit npm install

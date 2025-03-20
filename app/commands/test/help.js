@@ -19,7 +19,7 @@ const row = new ActionRowBuilder()
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('help')
-		.setDescription('View a list of available commands.'),
+		.setDescription('View a list of available commands'),
 	async execute(interaction) {
 		const response = await interaction.reply({ embeds: [helpEmbed], components: [row], withResponse: true });
 		const collectorFilter = i => i.user.id === interaction.user.id;
