@@ -1,10 +1,10 @@
+require('dotenv').config();
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
 // Client instance
-const client = new Client({
+global.client = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildVoiceStates,
@@ -12,9 +12,11 @@ const client = new Client({
 		GatewayIntentBits.GuildMembers,
 	],
 });
-
-// Command list
+client.config = require('./config');
 client.commands = new Collection();
+
+const { Player } = require('discord-player');
+const { YoutubeiExtractor } = require('discord-player-youtubei');
 
 // Get commands
 const foldersPath = path.join(__dirname, 'commands');
@@ -49,5 +51,8 @@ for (const file of eventFiles) {
 	}
 }
 
+const player = new Player(client, client.config.opt.discordPlayer);
+player.extractors.register(YoutubeiExtractor, {});
+
 // Login with token
-client.login(token);
+client.login(client.config.app.token);

@@ -1,12 +1,18 @@
 <h1><img align="center" src="misc/art_assets/lily_icon/lily_icon_d.png" alt="drawing" width="75"/> Lily Bot | Discord.js</h1>
 
-The config file `app/config.json` should be of the following format:
-```json
-{
-  "token": "string",
-  "clientId": "string",
-  "testGuildId": "string"
-}
+
+Requires FFmpeg to be located at `d.js-bot/ffmpeg.exe`
+\
+The environment file `d.js-bot/.env` should be of the following format:
+```env
+# Discord Bot Token
+DISCORD_TOKEN="XX"
+
+#Test Guild ID
+TEST_GUILD="XX"
+
+#Client ID
+CLIENT_ID="XX"
 ```
 \
 Commands are organized into the following folders:

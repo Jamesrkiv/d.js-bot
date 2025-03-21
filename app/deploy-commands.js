@@ -1,7 +1,8 @@
+require('dotenv').config();
 const { REST, Routes } = require('discord.js');
-const { clientId, testGuildId, token } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
+const config = require('./config');
 
 const commands = [];
 const testCommands = [];
@@ -43,20 +44,20 @@ for (const testfile of commandFilesTest) {
 }
 
 // Construct and prepare an instance of the REST module
-const rest = new REST().setToken(token);
+const rest = new REST().setToken(config.app.token);
 
 // Deploy commands
 (async () => {
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands - GLOBAL`);
 		const data = await rest.put(
-			Routes.applicationCommands(clientId),
+			Routes.applicationCommands(config.app.clientId),
 			{ body: commands },
 		);
 		console.log('\x1b[32m%s\x1b[0m', `Successfully reloaded ${data.length} application (/) commands - GLOBAL`);
 		console.log(`Started refreshing ${testCommands.length} application (/) commands - TEST`);
 		const testData = await rest.put(
-			Routes.applicationGuildCommands(clientId, testGuildId),
+			Routes.applicationGuildCommands(config.app.clientId, config.app.testGuild),
 			{ body: testCommands },
 		);
 		console.log('\x1b[32m%s\x1b[0m', `Successfully reloaded ${testData.length} application (/) commands - TEST`);
