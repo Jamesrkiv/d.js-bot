@@ -28,4 +28,4 @@ d.js-bot/app
     ├── test
     └── utility
 ```
-The `app/commands/test` folder is intended for development purposes. Commands within this folder will only be deployed to the guild with ID *testGuildId* as specified in `app/config.json`
+The `d.js-bot/app/commands/test` folder is intended for development purposes. Commands within this folder will only be deployed to the guild with ID *TEST_GUILD* as specified in `d.js-bot/.env`
