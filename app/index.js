@@ -4,7 +4,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 // Client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildVoiceStates,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+	],
+});
 
 // Command list
 client.commands = new Collection();
