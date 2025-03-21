@@ -1,6 +1,5 @@
 const {
 	SlashCommandBuilder,
-	EmbedBuilder,
 	MessageFlags,
 } = require('discord.js');
 const {
@@ -22,7 +21,7 @@ module.exports = {
 
 	async execute(interaction) {
 		// Avoid timeout
-		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+		await interaction.deferReply(/*{ flags: MessageFlags.Ephemeral }*/);
 
 		const player = useMainPlayer();
 
@@ -32,11 +31,8 @@ module.exports = {
 			searchEngine: QueryType.AUTO,
 		});
 
-		const defaultEmbed = new EmbedBuilder().setColor(0xFE83B9);
-
 		if (!res?.tracks.length) {
-			defaultEmbed.setAuthor({ name: 'No results found <❌>' });
-			return interaction.editReply({ embeds: [defaultEmbed] });
+			return interaction.editReply(`No results found for **${song}** ❌`);
 		}
 
 		try {
@@ -52,13 +48,11 @@ module.exports = {
 					leaveOnEndCooldown: client.config.opt.leaveOnEndCooldown,
 				},
 			});
-			defaultEmbed.setAuthor({ name: `Loading ${track.title} to the queue <✅>` });
-			await interaction.editReply({ embeds: [defaultEmbed] });
+			await interaction.editReply(`🎵  Loading **${track.title}** to the queue`);
 		}
 		catch (error) {
 			console.log(`Play error: ${error}`);
-			defaultEmbed.setAuthor({ name: 'I can\'t join the voice channel <❌>' });
-			return interaction.editReply({ embeds: [defaultEmbed] });
+			return interaction.editReply('I can\'t join the voice channel ❌');
 		}
 	},
 };

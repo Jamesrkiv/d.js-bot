@@ -34,7 +34,7 @@ module.exports = {
 		leaveOnEmpty: true,
 		leaveOnEmptyCooldown: 10000,
 		leaveOnEnd: true,
-		leaveOnEndCooldown: 30000,
+		leaveOnEndCooldown: 20000,
 		discordPlayer: {
 			ytdlOptions: {
 				quality: 'highestaudio',
