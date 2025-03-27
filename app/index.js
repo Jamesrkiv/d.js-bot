@@ -11,10 +11,12 @@ global.client = new Client({
 		GatewayIntentBits.MessageContent,
 		GatewayIntentBits.GuildMembers,
 	],
+	disableMentions: 'everyone',
 });
 client.config = require('./config');
 client.commands = new Collection();
 
+// Stuff for music/audio
 const { Player } = require('discord-player');
 const { YoutubeiExtractor } = require('discord-player-youtubei');
 
@@ -51,6 +53,7 @@ for (const file of eventFiles) {
 	}
 }
 
+// Create Discord player
 const player = new Player(client, client.config.opt.discordPlayer);
 player.extractors.register(YoutubeiExtractor, {});
 

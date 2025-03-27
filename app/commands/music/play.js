@@ -1,14 +1,12 @@
 const {
 	SlashCommandBuilder,
-	MessageFlags,
 } = require('discord.js');
 const {
 	QueryType,
 	useMainPlayer,
 } = require('discord-player');
 
-// Referencing https://github.com/ZerioDev/Music-bot/blob/master/main.js
-// Author: ZerioDev
+// Referencing https://github.com/ZerioDev/Music-bot
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -21,7 +19,7 @@ module.exports = {
 
 	async execute(interaction) {
 		// Avoid timeout
-		await interaction.deferReply(/*{ flags: MessageFlags.Ephemeral }*/);
+		await interaction.deferReply();
 
 		const player = useMainPlayer();
 
@@ -48,11 +46,11 @@ module.exports = {
 					leaveOnEndCooldown: client.config.opt.leaveOnEndCooldown,
 				},
 			});
-			await interaction.editReply(`🎵  Loading **${track.title}** to the queue`);
+			await interaction.editReply(`🎵  Loaded **${track.title}** to the queue`);
 		}
 		catch (error) {
 			console.log(`Play error: ${error}`);
-			return interaction.editReply('I can\'t join the voice channel ❌');
+			return interaction.editReply('❌  I can\'t join the voice channel');
 		}
 	},
 };
