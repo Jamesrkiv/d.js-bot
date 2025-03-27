@@ -30,15 +30,15 @@ module.exports = {
 		else if (interaction.type === InteractionType.MessageComponent) {
 			await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
-	        const customId = interaction.customId;
-	        if (!customId) return;
+			const customId = interaction.customId;
+			if (!customId) return;
 
-	        const queue = useQueue(interaction.guild);
-	        const path = `../../buttons/${customId}.js`;
+			const queue = useQueue(interaction.guild);
+			const path = `../../buttons/${customId}.js`;
 
-	        delete require.cache[require.resolve(path)];
-	        const button = require(path);
-	        if (button) return button({ client, interaction, customId, queue });
-	    }
+			delete require.cache[require.resolve(path)];
+			const button = require(path);
+			if (button) return button({ client, interaction, customId, queue });
+		}
 	},
 };
