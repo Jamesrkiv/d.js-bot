@@ -10,7 +10,7 @@ module.exports = {
 		extraMessages: false,
 		loopMessage: false,
 		lang: 'en',
-		enableEmojis: false,
+		enableEmojis: true,
 	},
 	emojis:{
 		'back': '⏪',
@@ -32,9 +32,9 @@ module.exports = {
 		spotifyBridge: true,
 		volume: 75,
 		leaveOnEmpty: true,
-		leaveOnEmptyCooldown: 10000,
+		leaveOnEmptyCooldown: 5000,
 		leaveOnEnd: true,
-		leaveOnEndCooldown: 20000,
+		leaveOnEndCooldown: 5000,
 		discordPlayer: {
 			ytdlOptions: {
 				quality: 'highestaudio',

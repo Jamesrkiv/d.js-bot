@@ -1,5 +1,6 @@
 const {
 	SlashCommandBuilder,
+	MessageFlags,
 } = require('discord.js');
 const {
 	QueryType,
@@ -11,19 +12,19 @@ const {
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('play')
-		.setDescription('Play audio from YouTube, Spotify, or SoundCloud')
+		.setDescription('Play an audio track from YouTube, Spotify, or SoundCloud')
 		.addStringOption(option =>
-			option.setName('song')
-				.setDescription('Song to play')
+			option.setName('track')
+				.setDescription('Track to play')
 				.setRequired(true)),
 
 	async execute(interaction) {
 		// Avoid timeout
-		await interaction.deferReply();
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const player = useMainPlayer();
 
-		const song = interaction.options.getString('song');
+		const song = interaction.options.getString('track');
 		const res = await player.search(song, {
 			requestedBy: interaction.member,
 			searchEngine: QueryType.AUTO,
@@ -46,7 +47,7 @@ module.exports = {
 					leaveOnEndCooldown: client.config.opt.leaveOnEndCooldown,
 				},
 			});
-			await interaction.editReply(`🎵  Loaded **${track.title}** to the queue`);
+			await interaction.editReply(`Loading **${track.title}** to the queue`);
 		}
 		catch (error) {
 			console.log(`Play error: ${error}`);

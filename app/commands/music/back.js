@@ -10,18 +10,20 @@ const {
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('skip')
-		.setDescription('Skip the current track'),
+		.setName('back')
+		.setDescription('Go back to previously track'),
 
 	async execute(interaction) {
 		// Avoid timeout
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const queue = useQueue(interaction.guild);
-		if (!queue?.isPlaying()) return interaction.editReply('Nothing\'s currently playing!');
+		if (!queue?.isPlaying()) return interaction.editReply('Nothing\'s currently playing');
 
-		const success = queue.node.skip();
+		if (!queue.history.previousTrack) return interaction.editReply('There\'s no previous audio to play');
 
-		return interaction.editReply(success ? `Skipping **${queue.currentTrack.title}**` : '❌  Something went wrong!');
+		await queue.history.back();
+
+		interaction.editReply('Playing the previous track');
 	},
 };
