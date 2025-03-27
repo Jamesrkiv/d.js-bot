@@ -7,7 +7,7 @@ module.exports = (queue, track) => {
 
 	(async () => {
 		const embed = new EmbedBuilder()
-			.setAuthor({ name: `🎵  Track ${track.title} added in the queue`, iconURL: track.thumbnail })
+			.setAuthor({ name: `🎵  Track ${track.title} added to queue`, iconURL: track.thumbnail })
 			.setColor(0xFE83B9);
 
 		queue.metadata.channel.send({ embeds: [embed] });
