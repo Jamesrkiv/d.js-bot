@@ -35,7 +35,7 @@ module.exports = {
 		}
 
 		try {
-			const { track } = await player.play(interaction.member.voice.channel, song, {
+			const { track } = await player.play(interaction.member.voice.channel, res, {
 				nodeOptions: {
 					metadata: {
 						channel: interaction.channel,
