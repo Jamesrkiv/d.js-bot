@@ -11,7 +11,7 @@ const {
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('back')
-		.setDescription('Go back to previous track'),
+		.setDescription('Go back to the previous track'),
 
 	async execute(interaction) {
 		// Avoid timeout

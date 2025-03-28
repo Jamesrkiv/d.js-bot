@@ -3,7 +3,7 @@ module.exports = {
 	app: {
 		token: process.env.DISCORD_TOKEN || 'xxx',
 		clientId: process.env.CLIENT_ID || 'xxx',
-		playing: 'Music!',
+		activity: '🌼 Testing...',
 		global: true,
 		guild: process.env.GUILD_ID || 'xxx',
 		testGuild: process.env.TEST_GUILD || 'xxx',
@@ -12,6 +12,7 @@ module.exports = {
 		lang: 'en',
 		enableEmojis: true,
 		verboseLog: false,
+		defaultCooldown: 3,
 	},
 	emojis:{
 		'back': '⏪',
