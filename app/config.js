@@ -11,6 +11,7 @@ module.exports = {
 		loopMessage: false,
 		lang: 'en',
 		enableEmojis: true,
+		verboseLog: false,
 	},
 	emojis:{
 		'back': '⏪',

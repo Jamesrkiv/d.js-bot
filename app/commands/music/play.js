@@ -50,7 +50,7 @@ module.exports = {
 			await interaction.editReply(`Loading **${track.title}** to the queue`);
 		}
 		catch (error) {
-			console.log(`Play error: ${error}`);
+			console.log('\x1b[31m%s\x1b[0m', `ERR! || Play error: ${error}`);
 			return interaction.editReply('❌  I can\'t join the voice channel');
 		}
 	},

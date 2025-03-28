@@ -1,4 +1,8 @@
-const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require('discord.js');
+const {
+	ActionRowBuilder,
+	ButtonBuilder,
+	EmbedBuilder,
+} = require('discord.js');
 
 // Referencing https://github.com/ZerioDev/Music-bot
 

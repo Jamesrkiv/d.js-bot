@@ -1,5 +1,9 @@
 require('dotenv').config();
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const {
+	Client,
+	Collection,
+	GatewayIntentBits,
+} = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -15,6 +19,7 @@ global.client = new Client({
 });
 client.config = require('./config');
 client.commands = new Collection();
+client.cooldowns = new Collection();
 
 // Stuff for music/audio
 const { Player } = require('discord-player');
@@ -23,6 +28,9 @@ const { YoutubeiExtractor } = require('discord-player-youtubei');
 // Create Discord player
 const player = new Player(client, client.config.opt.discordPlayer);
 player.extractors.register(YoutubeiExtractor, {});
+
+// Settings
+const verbLog = client.config.app.verboseLog;
 
 // Get commands
 const foldersPath = path.join(__dirname, 'commands');
@@ -38,7 +46,7 @@ for (const folder of commandFolders) {
 			client.commands.set(command.data.name, command);
 		}
 		else {
-			console.log(`WARN || The command at ${filePath} is missing a required "data" or "execute" property.`);
+			console.log('\x1b[33m%s\x1b[0m', `WARN || The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
 }
@@ -51,11 +59,11 @@ for (const file of eventFiles) {
 	const event = require(filePath);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
-		console.log(`LOAD || Loaded Discord event <${file.split('.')[0]}>`);
+		if (verbLog) console.log('\x1b[90m%s\x1b[0m', `LOAD || Loaded Discord event <${file.split('.')[0]}>`);
 	}
 	else {
 		client.on(event.name, (...args) => event.execute(...args));
-		console.log(`LOAD || Loaded Discord event <${file.split('.')[0]}>`);
+		if (verbLog) console.log('\x1b[90m%s\x1b[0m', `LOAD || Loaded Discord event <${file.split('.')[0]}>`);
 	}
 }
 
@@ -64,7 +72,7 @@ const playerEventsPath = path.join(__dirname, 'events/player');
 const playerEventFiles = fs.readdirSync(playerEventsPath).filter(file => file.endsWith('.js'));
 for (const file of playerEventFiles) {
 	const PlayerEvent = require(`./events/player/${file}`);
-	console.log(`LOAD || Loaded Player event <${file.split('.')[0]}>`);
+	if (verbLog) console.log('\x1b[90m%s\x1b[0m', `LOAD || Loaded Player event <${file.split('.')[0]}>`);
 	player.events.on(file.split('.')[0], PlayerEvent.bind(null));
 	delete require.cache[require.resolve(`./events/player/${file}`)];
 }
