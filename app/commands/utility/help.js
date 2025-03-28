@@ -15,24 +15,6 @@ const img = new AttachmentBuilder(imgPath);
 const commandDir = {};
 const helpOptions = [];
 
-// Parse commands
-const foldersPath = path.join(__dirname, '../');
-const commandFolders = fs.readdirSync(foldersPath);
-for (const folder of commandFolders) {
-	if (folder == 'test') continue;
-	commandDir[folder] = [];
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
-		const command = require(commandsPath + '/' + file);
-		commandDir[folder].push({
-			'name': command.data.name,
-			'description': command.data.description,
-		});
-	}
-	helpOptions.push(folder);
-}
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('help')
@@ -66,3 +48,21 @@ module.exports = {
 		interaction.reply({ embeds: [helpEmbed], files: [img] });
 	},
 };
+
+// Parse commands
+const foldersPath = path.join(__dirname, '../');
+const commandFolders = fs.readdirSync(foldersPath);
+for (const folder of commandFolders) {
+	if (folder == 'test') continue;
+	commandDir[folder] = [];
+	const commandsPath = path.join(foldersPath, folder);
+	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	for (const file of commandFiles) {
+		const command = require(commandsPath + '/' + file);
+		commandDir[folder].push({
+			'name': command.data.name,
+			'description': command.data.description,
+		});
+	}
+	helpOptions.push(folder);
+}
