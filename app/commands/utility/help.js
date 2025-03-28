@@ -38,7 +38,7 @@ module.exports = {
 		let commandList = '';
 		for (const cmd of commandDir[cat]) {
 			if (commandList !== '') commandList += '\n\n';
-			commandList += '**' + cmd['name'] + '**\n' + cmd['description'];
+			commandList += '> **' + cmd['name'] + '**\n> ' + cmd['description'];
 		}
 		const helpEmbed = new EmbedBuilder()
 			.setColor(0xFE83B9)
