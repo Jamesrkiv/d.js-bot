@@ -1,11 +1,9 @@
-const { Sequelize, DataTypes, Model, QueryTypes } = require('sequelize');
-
-class User extends Model {}
+const { DataTypes } = require('sequelize');
 
 module.exports = {
 	async initialize() {
 		// Define table(s)
-		const User = db.define('User', {
+		db.define('User', {
 			userID: {
 				type: DataTypes.TEXT,
 				primaryKey: true,
