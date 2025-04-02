@@ -7,9 +7,10 @@ module.exports = {
 	once: true,
 	async execute(client) {
 		try {
+			// Authenticate db and set up tables if needed
 			await db.authenticate();
-			console.log('\x1b[90m%s\x1b[0m', 'LOAD || Database connected successfully');
 			await initDB.initialize();
+			console.log('\x1b[90m%s\x1b[0m', 'LOAD || Database connected successfully');
 		}
 		catch (error) {
 			return console.log('\x1b[31m%s\x1b[0m', `ERR! || Database error <${error}>`);
