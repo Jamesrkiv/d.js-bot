@@ -7,12 +7,13 @@ const {
 const fs = require('node:fs');
 const path = require('path');
 
-// Help menu image
+// Image for embed
 const imgPath = path.resolve(__dirname, '../../../misc/art_assets/lily_icon/lily_icon_d.png');
 const img = new AttachmentBuilder(imgPath);
 
-// Collection of command categories w/ button and command list
+// JSON of command categories w/ respective commands
 const commandDir = {};
+// Command categories for autofill
 const helpOptions = [];
 
 module.exports = {
@@ -35,11 +36,13 @@ module.exports = {
 	async execute(interaction) {
 		const cat = interaction.options.getString('category');
 		if (!commandDir[cat]) return interaction.reply({ content: 'There\'s no help category matching `' + cat + '`', flags: MessageFlags.Ephemeral });
+		// Get list of commands w/ descriptions as string
 		let commandList = '';
 		for (const cmd of commandDir[cat]) {
 			if (commandList !== '') commandList += '\n\n';
 			commandList += '> **' + cmd['name'] + '**\n> ' + cmd['description'];
 		}
+		// Send embed for chosen category
 		const helpEmbed = new EmbedBuilder()
 			.setColor(0xFE83B9)
 			.setThumbnail('attachment://lily_icon_d.png')
@@ -49,14 +52,17 @@ module.exports = {
 	},
 };
 
-// Parse commands
+// Dynamically parse existing commands
 const foldersPath = path.join(__dirname, '../');
 const commandFolders = fs.readdirSync(foldersPath);
+// Use each folder as a command category
 for (const folder of commandFolders) {
+	// Ignore test commands
 	if (folder == 'test') continue;
 	commandDir[folder] = [];
 	const commandsPath = path.join(foldersPath, folder);
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	// Add the name/description of each command to array for given category (folder)
 	for (const file of commandFiles) {
 		const command = require(commandsPath + '/' + file);
 		commandDir[folder].push({
