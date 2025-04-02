@@ -6,6 +6,7 @@ const {
 } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
+const { Sequelize } = require('sequelize');
 
 // Client instance
 global.client = new Client({
@@ -20,6 +21,13 @@ global.client = new Client({
 client.config = require('./config');
 client.commands = new Collection();
 client.cooldowns = new Collection();
+
+// Connect database
+global.db = new Sequelize({
+	dialect: 'sqlite',
+	logging: false,
+	storage: './app/lilyDB.db',
+});
 
 // Stuff for music/audio
 const { Player } = require('discord-player');
