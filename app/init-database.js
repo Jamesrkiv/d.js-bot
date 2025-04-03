@@ -1,7 +1,14 @@
-const { DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 module.exports = {
-	async initialize() {
+	async initialize(path) {
+		// Create/connect database
+		const db = new Sequelize({
+			dialect: 'sqlite',
+			logging: false,
+			storage: path,
+		});
+
 		// Define table(s)
 		db.define('User', {
 			userID: {
@@ -9,7 +16,10 @@ module.exports = {
 				primaryKey: true,
 			},
 		});
-		// Create table(s) if they don't exist
+
 		await db.sync();
+		db.close();
+		
+		return console.log('\x1b[36m%s\x1b[0m', 'Created new database');
 	},
 };

@@ -6,7 +6,6 @@ const {
 } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { Sequelize } = require('sequelize');
 
 // Client instance
 global.client = new Client({
@@ -22,12 +21,8 @@ client.config = require('./config');
 client.commands = new Collection();
 client.cooldowns = new Collection();
 
-// Connect database
-global.db = new Sequelize({
-	dialect: 'sqlite',
-	logging: false,
-	storage: './app/lilyDB.db',
-});
+// Config settings
+const verbLog = client.config.app.verboseLog;
 
 // Stuff for music/audio
 const { Player } = require('discord-player');
@@ -36,9 +31,6 @@ const { YoutubeiExtractor } = require('discord-player-youtubei');
 // Create Discord player
 const player = new Player(client, client.config.opt.discordPlayer);
 player.extractors.register(YoutubeiExtractor, {});
-
-// Settings
-const verbLog = client.config.app.verboseLog;
 
 // Get commands
 const foldersPath = path.join(__dirname, 'commands');
@@ -59,7 +51,7 @@ for (const folder of commandFolders) {
 	}
 }
 
-// Get events
+// Get Discord events
 const eventsPath = path.join(__dirname, 'events/discord');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
