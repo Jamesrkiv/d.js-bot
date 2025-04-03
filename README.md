@@ -4,8 +4,8 @@ A discord bot created for my friends! :)
 Current planned functionality includes music and games, though there's more to come.
 
 Run 'npm install' to download the required node modules. From there you can use the included `run.bat` file to start the bot, once the required files are in place.
-___
-### Required files:
+
+## Required files:
 - `d.js-bot/ffmpeg.exe`
 - `d.js-bot/.env`
 
@@ -21,8 +21,8 @@ TEST_GUILD="XX"
 CLIENT_ID="XX"
 ```
 FFmpeg can be downloaded [here](https://ffmpeg.org/download.html).
-___
-### Organization:
+
+## Organization:
 Commands are organized into the folders based on category:
 ```md
 d.js-bot/app
