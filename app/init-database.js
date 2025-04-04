@@ -3,23 +3,25 @@ const { Sequelize, DataTypes } = require('sequelize');
 module.exports = {
 	async initialize(path) {
 		// Create/connect database
-		const db = new Sequelize({
+		const newDB = new Sequelize({
 			dialect: 'sqlite',
 			logging: false,
 			storage: path,
 		});
 
 		// Define table(s)
-		db.define('User', {
+		newDB.define('User', {
 			userID: {
 				type: DataTypes.TEXT,
 				primaryKey: true,
 			},
 		});
 
-		await db.sync();
-		db.close();
-		
+		// Sync database and close connection
+		await newDB.sync();
+		newDB.close();
+
+		// Log message
 		return console.log('\x1b[36m%s\x1b[0m', 'Created new database');
 	},
 };

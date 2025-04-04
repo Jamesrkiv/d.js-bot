@@ -6,9 +6,10 @@ module.exports = {
 		testGuild: process.env.TEST_GUILD || 'xxx',
 		dbPath: './app/lilyDB.db',
 		activity: '🌼 Testing...',
-		enableEmojis: true,
 		verboseLog: false,
 		defaultCooldown: 3,
+		enableEmojis: true,
+		loopMessage: false,
 	},
 	emojis:{
 		'back': '⏪',
