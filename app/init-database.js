@@ -1,27 +1,34 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 module.exports = {
-	async initialize(path) {
+	async initialize() {
+		// Config settings
+		const dbPath = client.config.app.dbPath;
+		const verbLog = client.config.app.verboseLog;
+
 		// Create/connect database
-		const newDB = new Sequelize({
+		const initDB = new Sequelize({
 			dialect: 'sqlite',
 			logging: false,
-			storage: path,
+			storage: dbPath,
 		});
 
-		// Define table(s)
-		newDB.define('User', {
+		// Define User table
+		initDB.define('User', {
 			userID: {
 				type: DataTypes.TEXT,
 				primaryKey: true,
+				allowNull: false,
+			},
+			balance: {
+				type: DataTypes.REAL,
+				defaultValue: 0,
 			},
 		});
 
-		// Sync database and close connection
-		await newDB.sync();
-		newDB.close();
-
-		// Log message
-		return console.log('\x1b[36m%s\x1b[0m', 'Created new database');
+		// Sync table(s) and return db
+		await initDB.sync();
+		if (verbLog) console.log('\x1b[36m%s\x1b[0m', 'LOAD || Database initialized');
+		return initDB;
 	},
 };
