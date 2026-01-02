@@ -5,7 +5,7 @@ module.exports = {
 		clientId: process.env.CLIENT_ID || 'xxx',
 		testGuild: process.env.TEST_GUILD || 'xxx',
 		dbPath: './app/lilyDB.db',
-		activity: '🌼 Testing...',
+		activity: '🌼 Hanging out',
 		verboseLog: false,
 		defaultCooldown: 3,
 		enableEmojis: true,
